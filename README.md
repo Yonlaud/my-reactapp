@@ -1,30 +1,52 @@
-# my-reactapp
-import React, { Component } from 'react'
-import logo from './logo.svg'
-import './App.css'
-import NotificationsSwitch from './components/notifications-switch'
-import UserSettings from './components/user-settings'
+import React, { Component } from 'react';
+import { EditorState } from 'draft-js';
+import { Editor } from 'react-draft-wysiwyg';
 
-class App extends Component {
-  render () {
+class MyEditor extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      editorState: EditorState.createEmpty()
+    };
+  }
+
+  onEditorStateChange = editorState => {
+    this.setState({
+      editorState
+    });
+  };
+
+  render() {
+    const { editorState } = this.state;
+
     return (
-      <div className='App'>
-        <div className='App-header'>
-          <img src={logo} className='App-logo' alt='logo' />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className='App-intro'>
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-
-        <hr />
-        <NotificationsSwitch />
-        <hr />
-        <UserSettings />
-
+      <div>
+        <Editor
+          editorState={editorState}
+          wrapperClassName="rich-editor demo-wrapper"
+          editorClassName="demo-editor"
+          onEditorStateChange={this.onEditorStateChange}
+          placeholder="The message goes here..."
+        />
       </div>
-    )
+    );
   }
 }
 
-export default App
+export { MyEditor };
+view rawmyEditor-1.js hosted with ❤ by GitHub
+In our App.js file, react already gives us some default code but we shall replace it with the code below. Note that we also import the react-draft-wysiwyg.css from node_modules so that we get all the styles for our editor.
+import React from 'react';
+import { MyEditor } from './components/myEditor';
+import './App.css'
+import '../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+
+function App() {
+  return (
+    <div className="app">
+      <MyEditor />
+    </div>
+  );
+}
+
+export default App;
