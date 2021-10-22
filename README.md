@@ -13,7 +13,7 @@ class App extends Component {
           <h2>Welcome to React</h2>
         </div>
         <p className='App-intro'>
-          To get started, I just edited this text in my app.
+          To get started, I just edited this text in my app!.
         </p>
 
         <hr />
